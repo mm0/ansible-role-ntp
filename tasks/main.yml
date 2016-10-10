@@ -3,11 +3,14 @@
   become: yes
 
 - name : Comment old ntp servers
-  replace: dest=/etc/ntp.conf regexp='^(server \d+.*)$' replace='#\1' backup=yes
+  replace: dest="{{ ntp_conf }}" regexp='^(server \d+.*)$' replace='#\1' backup=yes
+  become: yes
 
 - name: install package
-  lineinfile: "dest=/etc/ntp.conf line='{{ item }}' state=present"
+  lineinfile: "dest={{ ntp_conf }} line='{{ item }}' state=present"
   with_items: "{{ ntp_servers }}"
+  become: yes
 
 - name: restart server
   service: name=ntp state=restarted
+  become: yes

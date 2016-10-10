@@ -1,4 +1,5 @@
 ---
+ntp_conf_file: /etc/ntp.conf
 ntp_servers:
   - server 0.amazon.pool.ntp.org iburst
   - server 1.amazon.pool.ntp.org iburst
