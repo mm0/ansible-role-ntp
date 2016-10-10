@@ -1,0 +1,12 @@
+- name: Install ntp if not there
+  package: name=ntp state=present
+
+- name : Comment old ntp servers
+  replace: dest=/etc/ntp.conf regexp='^(server \d+.*)$' replace='#\1' backup=yes
+
+- name: install package
+  lineinfile: "dest=/etc/ntp.conf line='{{ item }}' state=present"
+  with_items: "{{ ntp_servers }}"
+
+- name: restart server
+  service: name=ntp state=restarted
