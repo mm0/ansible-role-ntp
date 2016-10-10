@@ -1,5 +1,6 @@
 - name: Install ntp if not there
   package: name=ntp state=present
+  become: yes
 
 - name : Comment old ntp servers
   replace: dest=/etc/ntp.conf regexp='^(server \d+.*)$' replace='#\1' backup=yes
