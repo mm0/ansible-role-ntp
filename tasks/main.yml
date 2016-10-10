@@ -3,11 +3,11 @@
   become: yes
 
 - name : Comment old ntp servers
-  replace: dest="{{ ntp_conf }}" regexp='^(server \d+.*)$' replace='#\1' backup=yes
+  replace: dest="{{ ntp_conf_file }}" regexp='^(server \d+.*)$' replace='#\1' backup=yes
   become: yes
 
 - name: install package
-  lineinfile: "dest={{ ntp_conf }} line='{{ item }}' state=present"
+  lineinfile: "dest={{ ntp_conf_file }} line='{{ item }}' state=present"
   with_items: "{{ ntp_servers }}"
   become: yes
 
